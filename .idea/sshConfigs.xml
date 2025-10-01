@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="onnect.yza1.seetacloud.com" id="e21ef0c1-f174-4de9-acd9-948738cd62c6" port="40876" nameFormat="DESCRIPTIVE" username="root" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="10.202.0.216" id="36c05caf-9166-4ff7-afab-b9f36cf8ce3d" port="22" nameFormat="DESCRIPTIVE" username="hello" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
