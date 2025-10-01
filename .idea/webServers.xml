@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e1df5dd6-f145-42a7-9ca5-e01722d51646" name="wmd(项目级别)">
+        <fileTransfer rootFolder="/home/hello/Desktop/wmd/wmd_finer_cam" accessType="SFTP" host="10.202.0.216" port="22" sshConfigId="36c05caf-9166-4ff7-afab-b9f36cf8ce3d" sshConfig="hello@10.202.0.216:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
