@@ -26,7 +26,10 @@ ARCL_HRRP_OSR/
 git clone https://github.com/krysme123/ARCL_HRRP_OSR.git
 
 ### 基本使用:
-#### 训练模型：使用VGG32网络和AdapRingLoss损失
-python universal_train_code.py --network VGG32ABN --loss AdapRingLoss
+#### 训练模型：使用VGG32网络训练2D数据 CNN1D训练1D数据，使用AdapRingLoss损失
+
+- python universal_train_code.py --network VGG32ABN --loss AdapRingLoss
+- python universal_train_code.py --network CNN1D --loss AdapRingLoss
 #### 分析AdapRingLoss损失结果
-python universal_analysis_code.py --loss AdapRingLoss
+
+- python universal_analysis_code.py --loss AdapRingLoss
