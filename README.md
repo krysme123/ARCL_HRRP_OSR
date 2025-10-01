@@ -16,14 +16,12 @@ ARCL_HRRP_OSR/
 ## 🚀 快速开始
 
 ### 环境配置:
-#### 环境要求
 
 - Python: 3.8或更高版本（推荐3.9+）
 - PyTorch: 1.9或更高版本（本代码在2.5.1+cu121上测试通过）
 - CUDA: 11.0或更高版本（推荐12.1，用于GPU加速）
 - GPU: 支持CUDA的NVIDIA显卡（推荐RTX 4090或更高性能显卡）
-#### 克隆项目
-git clone https://github.com/krysme123/ARCL_HRRP_OSR.git
+
 
 ### 基本使用:
 #### 训练模型：使用VGG32网络训练2D数据 CNN1D训练1D数据，使用AdapRingLoss损失
