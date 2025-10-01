@@ -14,8 +14,7 @@ from torch.optim import lr_scheduler
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
-from Dataset.ConcatenatedDataset import ConcatenatedDataset
-from Dataset.CV_datasets import CIFAR10_OSR
+
 from Dataset.HRRP_datasets import HRRPOSRData310, HRRPOSRData2D, HRRPOSRDataImage
 from Network.LeNet import LeNet
 from Train_Test import *
@@ -23,13 +22,13 @@ from Auxiliary.create_dir_file import create_dir_path
 from Network.VGG32 import VGG32, VGG32ABN
 from Network.CNN1D import CNN1D, CNN1DABN
 from Auxiliary.get_optimizer_lr import get_optimizer_lr
-from Dataset.CV_datasets import MNIST_OSR
+
 # from Network.ComplexNN import ComplexVGG32, ComplexCNN1D
 from Network.GAN import Generator32, Generator64, Discriminator64, Discriminator32, Generator1D, Discriminator1D
 from Auxiliary.save_network import save_network, save_gan
 from Auxiliary.schedulers import get_scheduler
 from Auxiliary.create_logfile import create_logfile
-from Dataset.CV_datasets import create
+
 
 
 parser = argparse.ArgumentParser("Open Set Recognition")
@@ -111,132 +110,14 @@ if __name__ == '__main__':
     """
         必须对载入数据的类型 options['dataset'] 先做一个解释声明，这一解释声明内容将作为训练结果的文件夹名称保存
     """
-    # # # ##############################################################################################################
-    # options['dataset'] = 'HRRP2D_10_CSR'
-    # # #
-    # options['complex'] = False
-    # options['data_root'] = ['C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A319/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A320/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A321/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A330-2/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A330-3/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A350-941/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B737-7/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B737-8/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B747-89L/2D_train_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/CRJ-900/2D_train_real',
-    #                         ]
-    # options['image_size'] = 32
-    # transform_ = transforms.Compose([
-    #     transforms.Resize((options['image_size'], options['image_size'])),
-    #     transforms.RandomHorizontalFlip(),
-    #     transforms.ToTensor()])
-    # train_data_set = HRRPOSRDataImage(options['data_root'], transform_)
-    #
-    # options['data_root'] = ['C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A319/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A320/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A321/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A330-2/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A330-3/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/A350-941/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B737-7/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B737-8/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/B747-89L/2D_test_real',
-    #                         'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results/CRJ-900/2D_test_real',
-    #                         ]
-    # transform_ = transforms.Compose([
-    #     transforms.Resize((options['image_size'], options['image_size'])),
-    #     transforms.ToTensor()])
-    # test_data_set = HRRPOSRDataImage(options['data_root'], transform_)
-    # options['num_classes'] = len(options['data_root'])
-    #
-    # # #  将 Dataset 数据结构载入为 DataLoader，有时这一步和上一步是重合的 #######
-    # train_loader = DataLoader(dataset=train_data_set, batch_size=options['batch_size'], shuffle=True, num_workers=8,
-    #                           pin_memory=options['use_gpu'])
-    # test_loader = DataLoader(dataset=test_data_set, batch_size=options['batch_size'], shuffle=False, num_workers=8,
-    #                          pin_memory=options['use_gpu'])
-    # # #############################################################################################################
-
-    #################################################################################################################
-    # options['dataset'] = 'HRRP1D_13_CSR'
-    #
-    # options['known'] = ['An-26', 'Cessna', 'Yak-42']
-    # options['data_root'] = 'C:/Users/42941/Documents/HRRP_data/HRRP_3_pre_results'
-    # # options['data_root'] = 'F:/HRRP_data/HRRP_3_pre_results'
-    # options['train'] = True
-    # options['complex'] = False      # 载入 HRRP 的模值实数数据 or 复数数据
-    # train_data_set_1 = HRRPOSRData310(**options)
-    # number_classes_1 = train_data_set_1.num_classes
-    # options['train'] = False
-    # test_data_set_1 = HRRPOSRData310(**options)
-    #
-    # options['train'] = True
-    # options['image_size'] = 0
-    # options['known'] = ['A319', 'A320', 'A321', 'A330-2', 'A330-3',
-    #                     'A350-941', 'B737-7', 'B737-8', 'B747-89L', 'CRJ-900']
-    # options['data_root'] = 'C:/Users/42941/Documents/HRRP_data/HRRP_10_pre_results'
-    # # options['data_root'] = 'F:/HRRP_data/HRRP_10_pre_results'
-    # train_data_set_2 = HRRPOSRData310(**options)
-    # options['train'] = False
-    # test_data_set_2 = HRRPOSRData310(**options)
-    # number_classes_2 = test_data_set_2.num_classes
-    #
-    # train_data_set = ConcatenatedDataset(train_data_set_1, train_data_set_2)
-    # test_data_set = ConcatenatedDataset(test_data_set_1, test_data_set_2)
-    # options['num_classes'] = number_classes_1 + number_classes_2
-    #
-    # ########## 将 Dataset 数据结构载入为 DataLoader，有时这一步和上一步是重合的 #######
-    # train_loader = DataLoader(dataset=train_data_set, batch_size=options['batch_size'], shuffle=True, num_workers=8,
-    #                           pin_memory=options['use_gpu'])
-    # test_loader = DataLoader(dataset=test_data_set, batch_size=options['batch_size'], shuffle=False, num_workers=8,
-    #                          pin_memory=options['use_gpu'])
-    # #################################################################################################################
-
-    # # ##############################################################################################################
-    # options['dataset'] = 'MNIST_10_CSR'
-
-    # options['data_root'] = '/Volumes/Work2024/CV_data/mnist'
-    # options['data_root'] = 'F:/CV_data/mnist'
-    # dataset = create('mnist', **options)
-    # options['num_classes'] = dataset.num_classes
-
-    # options['known'] = [1, 3, 5, 7, 9]
-    # options['data_root'] = '/Volumes/Work2024/CV_data/mnist'
-    # options['data_root'] = 'F:/CV_data/mnist'
-    # dataset = MNIST_OSR(**options)
-    # options['num_classes'] = dataset.num_classes
-
-    # train_loader = dataset.train_loader
-    # test_loader = dataset.test_loader
-    # out_loader = dataset.out_loader
-
-    # # ##############################################################################################################
-    # options['dataset'] = 'CIFAR_100_CSR'
-    #
-    # options['data_root'] = 'C:/Users/42941/Documents/CV_data/cifar100'
-    # dataset = create('cifar100', **options)
-    # options['num_classes'] = dataset.num_classes
-    #
-    # train_loader = dataset.train_loader
-    # test_loader = dataset.test_loader
-
-    # ##############################################################################################################
-    # options['dataset'] = 'CIFAR_10_OSR_for_RATR_CBD'
-    # options['known'] = [0, 1, 2, 3, 5, 7, 9]
-    # options['data_root'] = 'C:/Users/42941/Documents/CV_data/cifar10'
-    # dataset = CIFAR10_OSR(**options)
-    # options['num_classes'] = dataset.num_classes
-    #
-    # train_loader = dataset.train_loader
-    # test_loader = dataset.test_loader
-    # out_loader = dataset.out_loader
+    # # # #################################### 加载 2D HRRP数据集 ##########################################################################
 
     # class_name = {'0': 'A319', '1': 'A320', '2': 'A321', '3': 'A330-2', '4': 'A330-3',
     #               '5': 'A350-941', '6': 'B737-7', '7': 'B737-8', '8': 'B747-89L', '9': 'CRJ-900',
     #               '10': 'An-26', '11': 'Cessna', '12': 'Yak-42'}
     # options['dataset'] = 'HRRP2D'
-    # # options['known'] = [3, 0, 7, 6, 10] # AdapRingLoss比Softmax好
-    # # options['known'] = [4, 1, 6, 11, 9] (使用这个每个loss的性能都下降)
+    # # options['known'] = [3, 0, 7, 6, 10]
+    # # options['known'] = [4, 1, 6, 11, 9]
     # # options['known'] = [5, 12, 1, 9, 7]
     # # options['known'] = [2, 8, 4, 11, 5]
     # # options['known'] = [4, 9, 3, 0, 7]
@@ -317,18 +198,18 @@ if __name__ == '__main__':
     # ###############################   加载1D HRRP数据集完毕 ##############################################
 
     # ############################# 载入网络结构，载入时必须声明options['network'] ######################################
-    # options['network'] = 'VGG32ABN'
-    # options['feature_dim'] = 128
-    # # net = VGG32(options['num_classes']).to(options['device'])
-    # net = VGG32ABN(options['num_classes']).to(options['device'])
+    options['network'] = 'VGG32ABN'
+    options['feature_dim'] = 128
+    # net = VGG32(options['num_classes']).to(options['device'])
+    net = VGG32ABN(options['num_classes']).to(options['device'])
 
     # options['network'] = 'CNN1DABN'
     # options['feature_dim'] = 128
     # net = CNN1DABN(options['num_classes']).to(options['device'])
 
-    options['network'] = 'CNN1D'
-    options['feature_dim'] = 128
-    net = CNN1D(options['num_classes']).to(options['device'])
+    # options['network'] = 'CNN1D'
+    # options['feature_dim'] = 128
+    # net = CNN1D(options['num_classes']).to(options['device'])
 
     # options['network'] = 'ComplexVGG32'
     # options['feature_dim'] = 128
@@ -343,43 +224,13 @@ if __name__ == '__main__':
     # net = LeNet(options['num_classes']).to(options['device'])
 
     net_generator, net_generator_2, net_discriminator, criterion_bce = None, None, None, None
-    if options['cs'] or options['cs++']:     # ##################### ARPL+CS, AKPF
-        print("Creating GAN")
-        nz, ns, nd = options['nz'], 1, 2
-        if options['image_size'] == 32:
-            net_generator = Generator32(1, nz, 64, 3).to(options['device'])
-            net_discriminator = Discriminator32(1, 3, 64).to(options['device'])
-        if options['image_size'] == 64:
-            net_generator = Generator64(1, nz, 64, 3).to(options['device'])
-            net_discriminator = Discriminator64(1, 3, 64).to(options['device'])
-        if options['image_size'] == 0:      # HRRP
-            net_generator = Generator1D(nz).to(options['device'])
-            net_discriminator = Discriminator1D(nd).to(options['device'])
-        criterion_bce = nn.BCELoss().to(options['device'])
-        if options['cs++']:                 # ##################### AKPF++
-            if options['image_size'] == 32:
-                net_generator_2 = Generator32(1, nz, 64, 3).to(options['device'])
-            if options['image_size'] == 64:
-                net_generator_2 = Generator64(1, nz, 64, 3).to(options['device'])
-            if options['image_size'] == 0:      # HRRP
-                net_generator_2 = Generator1D(nz).to(options['device'])
-
-    # ##################### 特殊参数的设置 #######################
-    if options['loss'] == 'AKPFLoss' and (options['cs'] or options['cs++']):
-        options['R_recording'], options['kR_recording'] = [], []
 
     # ####################################### 设置损失函数和优化器 ##################################################
     loss = importlib.import_module('Loss.' + options['loss'])
     criterion = getattr(loss, options['loss'])(**options).to(options['device'])
 
     optimizer_discriminator, optimizer_generator, optimizer_generator_2 = None, None, None
-    if options['cs'] or options['cs++']:     # ##################### ARPL+CS, AKPF
-        optimizer_discriminator = torch.optim.Adam(net_discriminator.parameters(), lr=options['gan_lr'],
-                                                   betas=(0.5, 0.999))
-        optimizer_generator = torch.optim.Adam(net_generator.parameters(), lr=options['gan_lr'], betas=(0.5, 0.999))
-        if options['cs++']:
-            optimizer_generator_2 = torch.optim.Adam(net_generator_2.parameters(), lr=options['gan_lr'],
-                                                     betas=(0.5, 0.999))
+
 
     params_list = [{'params': net.parameters()}, {'params': criterion.parameters()}]
     # optimizer = torch.optim.Adam(params_list, lr=options['lr'])
@@ -412,14 +263,6 @@ if __name__ == '__main__':
             train_cs(net, net_discriminator, net_generator, criterion, criterion_bce,
                      optimizer, optimizer_discriminator, optimizer_generator,
                      train_loader, **options)
-        if (options['cs'] and options['loss'] == 'AKPFLoss') or options['cs++']:
-            train_cs_akpf(net, net_discriminator, net_generator, criterion, criterion_bce,
-                          optimizer, optimizer_discriminator, optimizer_generator,
-                          train_loader, **options)
-            if options['cs++']:
-                train(net, criterion, optimizer, train_loader, **options)
-                train_cs_akpf_plus(net, net_generator_2, criterion, optimizer, optimizer_generator_2,
-                                   train_loader, **options)
 
         if out_loader:
             test_acc, test_loss, auc, oscr = test_osr(net, criterion, test_loader, out_loader, **options)
