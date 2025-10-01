@@ -1,3 +1,4 @@
+
 """
     这是一个通用的用于对已有模型训练结果的测试分析代码框架，后面有定制化的特殊使用需求的话，可以在这个的基础上进行更改，效率更高
 """
@@ -93,23 +94,6 @@ if __name__ == '__main__':
         print("Currently using CPU!")
 
     # # ###### 载入数据，这一部分针对不同种类的数据需要进行定制化操作，从 Dataset 文件夹引入函数进行载入数据 ##########################
-    # options['dataset'] = 'MNIST_10_CSR'
-    #
-    # # options['data_root'] = '/Volumes/Work2024/CV_data/mnist'
-    # options['data_root'] = 'F:/CV_data/mnist'
-    # dataset = create('mnist', **options)
-    # options['num_classes'] = dataset.num_classes
-    # train_loader = dataset.train_loader
-    # test_loader = dataset.test_loader
-
-    # options['dataset'] = 'CIFAR_10_OSR_for_RATR_CBD'
-    # options['known'] = [0, 1, 2, 3, 5, 7, 9]
-    # options['data_root'] = 'C:/Users/42941/Documents/CV_data/cifar10'
-    # dataset = CIFAR10_OSR(**options)
-    # options['num_classes'] = dataset.num_classes
-    # train_loader = dataset.train_loader
-    # test_loader = dataset.test_loader
-    # out_loader = dataset.out_loader
 
     class_name = {'0': 'A319', '1': 'A320', '2': 'A321', '3': 'A330-2', '4': 'A330-3',
                   '5': 'A350-941', '6': 'B737-7', '7': 'B737-8', '8': 'B747-89L', '9': 'CRJ-900',
