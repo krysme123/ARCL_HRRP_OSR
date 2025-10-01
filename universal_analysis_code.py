@@ -18,7 +18,7 @@ from Dataset.HRRP_datasets import HRRPOSRDataImage,HRRPOSRData310
 from Network.LeNet import LeNet
 from Network.VGG32 import VGG32ABN
 from Network.CNN1D import CNN1D
-from Dataset.CV_datasets import create, CIFAR10_OSR
+
 from Analysis.get_features_logits import get_features_logits
 from Analysis.plot_feature_distribution import plot_feature_distribution, plot_diff_feature_distribution
 from Analysis.plot_feature_boundary import plot_feature_boundary
@@ -189,32 +189,7 @@ if __name__ == '__main__':
     # ###############################   加载1D HRRP数据集完毕 ##############################################
 
     # ############################# 载入网络结构和训练准则 ######################################
-    # options['network'] = 'LeNet'
-    # options['feature_dim'] = 2
-    # net = LeNet(options['num_classes']).to(options['device'])
-    #
-    # load_path = './Results_MNIST_10_CSR/LeNet_Softmax/2024-09-13-14-48-02'
-    # net_name = options['network']+'_'+options['loss']+'_30(30).pth'
-    # net.load_state_dict(torch.load(load_path + '/network/' + net_name), strict=False)
-    #
-    # loss = importlib.import_module('Loss.' + options['loss'])
-    # criterion = getattr(loss, options['loss'])(**options).to(options['device'])
-    # criterion_name = options['network']+'_'+options['loss']+'_30(30)_criterion.pth'
-    # criterion.load_state_dict(torch.load(load_path + '/network/' + criterion_name))
 
-    # options['network'] = 'VGG32ABN'
-    # options['feature_dim'] = 128
-    # net = VGG32ABN(options['num_classes']).to(options['device'])
-    # name = name_transport(**options)
-    #
-    # load_path = './Results_CIFAR_10_OSR_for_RATR_CBD/VGG32ABN_GCPL/2025-01-01-16-02-02'
-    # net_name = options['network'] + '_' + name + '_100(100).pth'
-    # net.load_state_dict(torch.load(load_path + '/network/' + net_name), strict=False)
-    #
-    # loss = importlib.import_module('Loss.' + options['loss'])
-    # criterion = getattr(loss, options['loss'])(**options).to(options['device'])
-    # criterion_name = options['network'] + '_' + name + '_100(100)_criterion.pth'
-    # criterion.load_state_dict(torch.load(load_path + '/network/' + criterion_name))
 
     options['network'] = 'VGG32ABN'
     options['feature_dim'] = 128
@@ -229,19 +204,6 @@ if __name__ == '__main__':
     criterion_name = options['network'] + '_' + name + '_100(100)_criterion.pth'
     criterion.load_state_dict(torch.load(load_path + '/network/' + criterion_name,map_location=options['device'])) # 用gpu加载 在gpu上训练的模型
 
-    # options['network'] = 'CNN1D'
-    # options['feature_dim'] = 128
-    # net = CNN1D(options['num_classes']).to(options['device'])
-    # name = name_transport(**options)
-    #
-    # load_path = './Results_HRRP1D/CNN1D_Softmax/2025-06-04-22-10-44'
-    # net_name = options['network'] + '_' + name + '_100(100).pth'
-    # net.load_state_dict(torch.load(load_path + '/network/' + net_name, map_location=options['device']), strict=False)
-    #
-    # loss = importlib.import_module('Loss.' + options['loss'])
-    # criterion = getattr(loss, options['loss'])(**options).to(options['device'])
-    # criterion_name = options['network'] + '_' + name + '_100(100)_criterion.pth'
-    # criterion.load_state_dict(torch.load(load_path + '/network/' + criterion_name,map_location=options['device']))
 
     # ########################### 开始定制化的分析和测试 #########################
 
