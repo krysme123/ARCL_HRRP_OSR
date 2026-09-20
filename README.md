@@ -14,11 +14,8 @@
 
 ## 📊 框架图与实验结果
 
-![Framework](/images/framework.png)
-*图1：AdapRingLoss 网络框架图*
-
-![Loss Curve](/images/loss_curve.png)
-*图2：AdapRingLoss 训练收敛曲线*
+![Framework](/images/loss原理图.png)
+*图1：AdapRingLoss 原理图*
 
 ## 📝 论文链接
 
